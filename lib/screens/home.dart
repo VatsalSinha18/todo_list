@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-                        for (ToDo todo1 in _filteredTodo)
+                        for (ToDo todo1 in _filteredTodo.reversed)
                           ToDoItems(
                             todo: todo1,
                             onToDoChanged: _handleToDoChange,
