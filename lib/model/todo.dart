@@ -13,8 +13,8 @@ class ToDo {
 
   static List<ToDo> todoList(){
     return[
-      ToDo(id: '01', todotext: "sample true", Done:true),
-      ToDo(id: '02', todotext: "sample false", ),
+      ToDo(id: '01', todotext: "Checked in!", Done:true),
+
 
 
     ];

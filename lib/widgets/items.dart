@@ -34,30 +34,35 @@ class ToDoItems extends StatelessWidget {
         title: Text(
           todo.todotext!,
           style: TextStyle(
-            fontSize: 15,
+            fontSize: 20,
             color: MatBlack,
             decoration: todo.Done?TextDecoration.lineThrough:null,
           ),
         ),
         trailing: Container(
-            padding: EdgeInsets.all(0),
-            margin: EdgeInsets.symmetric(vertical: 12),
-            height: 35,
-            width: 35,
-            decoration: BoxDecoration(
-              color: NRed,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: IconButton(
-              color: Colors.white,
-              iconSize: 18,
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                onDeleteItem(todo.id);
-              },
-            )
-        ),
-      ),
-    );
+                padding: EdgeInsets.all(0),
+                margin: EdgeInsets.symmetric(vertical: 12),
+                height: 35,
+                width: 35,
+                decoration: BoxDecoration(
+                  color: NRed,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: IconButton(
+                  color: Colors.white,
+                  iconSize: 18,
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    onDeleteItem(todo.id);
+                  },
+                )
+
+    ),
+
+      )
+
+
+        );
+
   }
 }

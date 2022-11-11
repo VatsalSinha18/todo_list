@@ -182,7 +182,11 @@ class _HomeState extends State<Home> {
           Container(
             height: 45,
             width: 45,
-            child: Image.asset("todo.jpg")   ),],
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset("assets/todo.jpg"),
+            ),   
+          ),],
       ),
     );
   }
