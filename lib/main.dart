@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'screens/home.dart';
 
-void main(){
+void main() async{
+
+  //init hive
+  await Hive.initFlutter();
+  //open box
+  var box=await Hive.openBox("mybox");
+
+
   runApp(const MyApp());
 }
 

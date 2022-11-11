@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import '../widgets/items.dart';
 import '../colors for app/colors.dart';
 import '../model/todo.dart';
@@ -13,12 +14,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<ToDo> _foundToDo = ToDo.todoList();
-  var _filteredTodo = ToDo.todoList();
+  final _mybox= Hive.box("mybox");
+  final List _foundToDo = ToDoDataBase().todoList;
+  var _filteredTodo = ToDoDataBase().todoList;
+  ToDoDataBase db = ToDoDataBase();
 
 
   final _todoController = TextEditingController();
   final _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    // if the app ones for the first time.
+    if(_mybox.get("TODOLIST")==null){
+      db.createInitialDataBase();
+    }else{
+      db.loadDatabase();
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +134,7 @@ class _HomeState extends State<Home> {
   void _handleToDoChange(ToDo todo) {
     setState(() {
       todo.Done = !todo.Done;
+      db.updateDatabase();
     });
   }
 
@@ -128,6 +143,7 @@ class _HomeState extends State<Home> {
       _foundToDo.removeWhere((item) => item.id == id);
     });
     runFeature(_searchController.text);
+    db.updateDatabase();
   }
 
   void addToDoItems(String toDo) {
@@ -136,15 +152,18 @@ class _HomeState extends State<Home> {
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         todotext: toDo,
       ));
+      db.updateDatabase();
     });
     _todoController.clear();
     runFeature(_searchController.text);
+
   }
 
   void runFeature(String enterkeyword) {
     setState(() {
       _filteredTodo = _foundToDo.where((element) => element.todotext.toLowerCase().contains(enterkeyword.trim().isNotEmpty ? enterkeyword : "")).toList();
     });
+    db.updateDatabase();
   }
   Container searchbox() {
     return Container(
